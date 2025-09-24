@@ -1,0 +1,23 @@
+<div class="flex gap-2 mb-4">
+  <a type="button" class="btn btn-secondary" routerLink="/transporte/viaje/"> Atrás </a>
+  <button (click)="onSubmit()" class="btn btn-primary">Guardar</button>
+</div>
+<div class="card mb-5">
+  <div class="card-header">
+    <h3 class="card-title">Editar viaje - {{ viajeDatos()?.id }}</h3>
+  </div>
+  <div class="card-body">
+    @if (cargando()) {
+      <div class="d-flex justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+    } @else {
+      <app-viaje-formulario
+        #viajeFormulario
+        [estaEditando]="true"
+        [viajeData]="viajeDatos()"
+        (viajeGuardado)="actualizarViaje($event)"
+      ></app-viaje-formulario>
+    }
+  </div>
+</div>

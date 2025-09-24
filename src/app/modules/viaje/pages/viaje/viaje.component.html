@@ -1,0 +1,20 @@
+<div class="card mb-5">
+  <div class="card-header">
+    <h3 class="card-title">Viajes</h3>
+    <button class="btn btn-primary" routerLink="/transporte/viaje/nuevo">Nuevo</button>
+  </div>
+  <div class="card-body">
+    <div class="grid grid-cols-2 xl:grid-cols-3 gap-4">
+      @for (viaje of viajes(); track viaje.datos.id) {
+        <div>
+          <app-viaje-card
+            [viaje]="viaje"
+            (propuestaAceptada)="aceptarPropuesta($event)"
+            (eliminarViaje)="eliminarViaje($event)"
+            (cancelarViaje)="cancelarViaje($event)"
+          ></app-viaje-card>
+        </div>
+      }
+    </div>
+  </div>
+</div>
