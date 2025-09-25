@@ -49,8 +49,8 @@ export class HeaderComponent implements OnInit {
         // Usar nombre y apellido si están disponibles
         this.userName = user.nombre ? `${user.nombre} ${user.apellido || ''}`.trim() : 'Usuario';
         this.userEmail = user.correo || '';
-        if (user.imagen) {
-          this.userImage = user.imagen;
+        if (user.imagen_thumbnail) {
+          this.userImage = user.imagen_thumbnail;
         }
       }
     });
