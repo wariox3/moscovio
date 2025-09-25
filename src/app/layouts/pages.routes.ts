@@ -1,32 +1,32 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '@app/common/guards/auth.guard';
 
 export default [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'carga-masiva',
     pathMatch: 'full',
   },
   {
-    path: 'dashboard',
-    canActivate: [authGuard],
+    path: 'carga-masiva',
+    canActivate: [],
     loadComponent: () => import('./admin-layout/admin-layout.component'),
     children: [
       {
         path: '',
-        loadChildren: () => import('../modules/home/pages/dashboard/dashboard.routes'),
+        loadComponent: () =>
+          import('../modules/carga-masiva/pages/carga-masiva/carga-masiva.component'),
       },
     ],
   },
-  {
-    path: 'transporte',
-    canActivate: [authGuard],
-    loadComponent: () => import('./admin-layout/admin-layout.component'),
-    children: [
-      {
-        path: 'viaje',
-        loadChildren: () => import('../modules/viaje/viaje.routes'),
-      },
-    ],
-  },
+  // {
+  //   path: 'transporte',
+  //   canActivate: [],
+  //   loadComponent: () => import('./admin-layout/admin-layout.component'),
+  //   children: [
+  //     {
+  //       path: 'viaje',
+  //       loadChildren: () => import('../modules/viaje/viaje.routes'),
+  //     },
+  //   ],
+  // },
 ] as Routes;

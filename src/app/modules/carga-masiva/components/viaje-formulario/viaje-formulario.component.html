@@ -1,0 +1,135 @@
+<form [formGroup]="viajeForm">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+    <div>
+      <ui-label [required]="true">Servicio</ui-label>
+      <app-select-search
+        [control]="getControl('servicio')"
+        [errors]="{ required: 'Este campo es requerido.' }"
+        [endpoint]="'vertical/servicio/seleccionar/'"
+        [campoBusqueda]="'nombre__icontains'"
+        [parametrosEndpoint]="{
+          nombre__icontains: this.viajeForm.get('servicio__nombre').value,
+          limit: 10,
+        }"
+      ></app-select-search>
+    </div>
+    <div>
+      <ui-label [required]="true">Cliente</ui-label>
+      <ui-input formControlName="cliente" [control]="viajeForm.get('cliente')"></ui-input>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+    <div>
+      <ui-label [required]="true">Producto</ui-label>
+      <app-select-search
+        [control]="getControl('producto')"
+        [errors]="{ required: 'Este campo es requerido.' }"
+        [endpoint]="'vertical/producto/seleccionar/'"
+        [campoBusqueda]="'nombre__icontains'"
+        [parametrosEndpoint]="{
+          nombre__icontains: this.viajeForm.get('producto__nombre').value,
+          limit: 10,
+        }"
+      ></app-select-search>
+    </div>
+    <div>
+      <ui-label [required]="true">Empaque</ui-label>
+      <app-select-search
+        [control]="getControl('empaque')"
+        [errors]="{ required: 'Este campo es requerido.' }"
+        [endpoint]="'vertical/empaque/seleccionar/'"
+        [campoBusqueda]="'nombre__icontains'"
+        [parametrosEndpoint]="{
+          nombre__icontains: this.viajeForm.get('empaque__nombre').value,
+          limit: 10,
+        }"
+      ></app-select-search>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+    <div>
+      <ui-label [required]="true">Puntos de entrega</ui-label>
+      <ui-input
+        formControlName="puntos_entrega"
+        [control]="viajeForm.get('puntos_entrega')"
+        placeholder="0"
+        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
+      ></ui-input>
+    </div>
+    <div>
+      <ui-label [required]="true">Unidades</ui-label>
+      <ui-input
+        formControlName="unidades"
+        type="number"
+        [control]="viajeForm.get('unidades')"
+        placeholder="0"
+        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
+      ></ui-input>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+    <div>
+      <ui-label [required]="true">Peso</ui-label>
+      <ui-input
+        placeholder="0"
+        formControlName="peso"
+        type="number"
+        [control]="viajeForm.get('peso')"
+        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
+      ></ui-input>
+    </div>
+    <div>
+      <ui-label [required]="true">Volumen</ui-label>
+      <ui-input
+        placeholder="0"
+        formControlName="volumen"
+        type="number"
+        [control]="viajeForm.get('volumen')"
+        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
+      ></ui-input>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+    <div>
+      <ui-label [required]="true">Origen</ui-label>
+      <app-select-search
+        [control]="getControl('ciudad_origen')"
+        [errors]="{ required: 'Este campo es requerido.' }"
+        [endpoint]="'vertical/ciudad/seleccionar/'"
+        [campoBusqueda]="'nombre__icontains'"
+        [parametrosEndpoint]="{
+          nombre__icontains: this.viajeForm.get('ciudad_origen__nombre').value,
+          limit: 10,
+        }"
+      ></app-select-search>
+    </div>
+    <div>
+      <ui-label [required]="true">Destino</ui-label>
+      <app-select-search
+        [control]="getControl('ciudad_destino')"
+        [errors]="{ required: 'Este campo es requerido.' }"
+        [endpoint]="'vertical/ciudad/seleccionar/'"
+        [campoBusqueda]="'nombre__icontains'"
+        [parametrosEndpoint]="{
+          nombre__icontains: this.viajeForm.get('ciudad_destino__nombre').value,
+          limit: 10,
+        }"
+      ></app-select-search>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 mb-5">
+    <div>
+      <ui-label>Comentario</ui-label>
+      <textarea
+        formControlName="comentario"
+        class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[calc(1.5rem*var(--rows))]"
+        [rows]="3"
+      ></textarea>
+    </div>
+  </div>
+</form>
