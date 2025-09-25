@@ -1,3 +1,15 @@
 :host {
   display: block;
+  position: relative;
+  z-index: 9999;
+}
+
+.menu {
+  position: relative;
+  z-index: 9999;
+}
+
+.menu-dropdown {
+  position: absolute;
+  z-index: 10000;
 }

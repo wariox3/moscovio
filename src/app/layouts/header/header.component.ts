@@ -20,10 +20,10 @@ export class HeaderComponent {
   @HostBinding('id') hostId = 'header';
 
   public menuItems: any[] = [
-    {
-      titulo: 'Perfil',
-      icono: 'ki-filled ki-user',
-      link: '/perfil',
-    },
+    // {
+    //   titulo: 'Perfil',
+    //   icono: 'ki-filled ki-user',
+    //   link: '/perfil',
+    // },
   ];
 }

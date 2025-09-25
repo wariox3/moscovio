@@ -1,3 +1,10 @@
 :host {
   display: block;
+  position: relative;
+  z-index: 1; // Asegurar que tenga un z-index bajo
+}
+
+// Asegurar que los elementos absolutos tengan un z-index bajo
+.absolute {
+  z-index: 1;
 }
