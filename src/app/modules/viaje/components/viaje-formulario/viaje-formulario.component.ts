@@ -1,5 +1,4 @@
-import {
-  ChangeDetectionStrategy,
+import { ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -9,16 +8,23 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgClass } from '@angular/common';
 import { SelectSearchComponent } from '@app/common/components/ui/forms/select-search/select-search.component';
 import { Usuario } from '@app/modules/auth/interfaces/usuario.interface';
 import { selectCurrentUser } from '@app/modules/auth/store/selectors/auth.selector';
 import { Store } from '@ngrx/store';
-import { InputComponent, LabelComponent } from '@tamerlantian/ui-components';
-
+import { InputComponent, LabelComponent, ButtonComponent } from '@tamerlantian/ui-components';
 @Component({
   selector: 'app-viaje-formulario',
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent, LabelComponent, SelectSearchComponent],
+  imports: [
+    ReactiveFormsModule,
+    InputComponent,
+    LabelComponent,
+    SelectSearchComponent,
+    ButtonComponent,
+    NgClass,
+  ],
   templateUrl: './viaje-formulario.component.html',
   styleUrl: './viaje-formulario.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

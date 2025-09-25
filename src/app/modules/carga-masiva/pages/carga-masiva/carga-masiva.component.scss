@@ -1,3 +1,31 @@
 :host {
   display: block;
+  width: 100%;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+// Estilos para la sección de viajes publicados
+.mt-6 {
+  margin-top: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+// Ajustes para que coincida con el estilo del formulario
+h3.text-lg {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4b5563;
+}
+
+// Estilo para el mensaje de no hay viajes
+.col-span-3.py-8 {
+  border: 1px dashed #d1d5db;
+  border-radius: 0.5rem;
 }
