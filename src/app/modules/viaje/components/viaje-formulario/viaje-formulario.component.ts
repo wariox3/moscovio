@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy,
+import { NgClass } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -8,23 +10,15 @@ import { ChangeDetectionStrategy,
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgClass } from '@angular/common';
 import { SelectSearchComponent } from '@app/common/components/ui/forms/select-search/select-search.component';
 import { Usuario } from '@app/modules/auth/interfaces/usuario.interface';
 import { selectCurrentUser } from '@app/modules/auth/store/selectors/auth.selector';
 import { Store } from '@ngrx/store';
-import { InputComponent, LabelComponent, ButtonComponent } from '@tamerlantian/ui-components';
+import { InputComponent, LabelComponent } from '@tamerlantian/ui-components';
 @Component({
   selector: 'app-viaje-formulario',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    InputComponent,
-    LabelComponent,
-    SelectSearchComponent,
-    ButtonComponent,
-    NgClass,
-  ],
+  imports: [ReactiveFormsModule, InputComponent, LabelComponent, SelectSearchComponent, NgClass],
   templateUrl: './viaje-formulario.component.html',
   styleUrl: './viaje-formulario.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -99,6 +93,27 @@ export class ViajeFormularioComponent implements OnInit {
     }
 
     this.viajeGuardado.emit(this.viajeForm.value);
+    this.limpiarFormulario();
+  }
+
+  limpiarFormulario(): void {
+    // Mantener el usuario actual
+    const usuarioId = this.viajeForm.get('usuario')?.value;
+    const clienteNombre = this.viajeForm.get('cliente')?.value;
+    const numeroIdentificacion = this.viajeForm.get('numero_identificacion')?.value;
+
+    // Resetear el formulario
+    this.viajeForm.reset();
+
+    // Restaurar los datos del usuario
+    this.viajeForm.patchValue({
+      usuario: usuarioId,
+      cliente: clienteNombre,
+      numero_identificacion: numeroIdentificacion,
+      solicitud_cliente: true,
+    });
+
+    this._cdr.detectChanges();
   }
 
   getControl(nombre: string): FormControl {
