@@ -1,5 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewEncapsulation,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+// Importar estilos de Swiper
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 @Component({
   selector: 'app-slider',
@@ -7,8 +22,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./slider.component.scss'],
   standalone: true,
   imports: [CommonModule],
+  encapsulation: ViewEncapsulation.None,
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
+  swiper?: Swiper;
   slides = [
     {
       image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop',
@@ -27,36 +45,47 @@ export class SliderComponent implements OnInit {
     },
   ];
 
-  currentSlide = 0;
-  autoplayInterval: any;
-
   constructor() { }
 
   ngOnInit(): void {
-    this.startAutoplay();
+    // Registrar los módulos de Swiper que vamos a usar
+    Swiper.use([Navigation, Pagination, Autoplay]);
   }
 
-  startAutoplay(): void {
-    this.autoplayInterval = setInterval(() => {
-      this.nextSlide();
-    }, 5000);
+  ngAfterViewInit(): void {
+    // Inicializar Swiper después de que la vista esté lista
+    this.initSwiper();
   }
 
-  stopAutoplay(): void {
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
+  ngOnDestroy(): void {
+    // Destruir la instancia de Swiper cuando el componente se destruye
+    if (this.swiper) {
+      this.swiper.destroy();
     }
   }
 
-  nextSlide(): void {
-    this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-  }
-
-  prevSlide(): void {
-    this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-  }
-
-  goToSlide(index: number): void {
-    this.currentSlide = index;
+  private initSwiper(): void {
+    // Crear una nueva instancia de Swiper
+    this.swiper = new Swiper(this.swiperContainer.nativeElement, {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
   }
 }
