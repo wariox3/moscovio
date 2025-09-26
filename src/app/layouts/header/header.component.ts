@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit, inject } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from '@app/modules/auth/store/selectors/auth.selector';
 import { Usuario } from '@app/modules/auth/interfaces/usuario.interface';
 import { Observable } from 'rxjs';
+import { TokenService } from '@app/modules/auth/services/token.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MenuComponent, RouterLink],
+  imports: [CommonModule, MenuComponent, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
   @HostBinding('id') hostId = 'header';
 
   private store = inject(Store);
+  private tokenService = inject(TokenService);
 
   // Usuario actual
   currentUser$: Observable<Usuario | null>;
@@ -31,6 +33,9 @@ export class HeaderComponent implements OnInit {
   userEmail: string = '';
   userImage: string =
     'https://semanticadesarrollo.tor1.digitaloceanspaces.com/itrio/usuario_defecto.jpg';
+
+  // Estado de autenticación
+  isAuthenticated: boolean = false;
 
   public menuItems: any[] = [
     // {
@@ -40,6 +45,9 @@ export class HeaderComponent implements OnInit {
     // },
   ];
   ngOnInit(): void {
+    // Verificar si el usuario está autenticado
+    this.isAuthenticated = this.tokenService.validarToken();
+
     // Obtener el usuario actual del store
     this.currentUser$ = this.store.select(selectCurrentUser);
 
@@ -52,6 +60,12 @@ export class HeaderComponent implements OnInit {
         if (user.imagen_thumbnail) {
           this.userImage = user.imagen_thumbnail;
         }
+
+        // Actualizar el estado de autenticación
+        this.isAuthenticated = true;
+      } else {
+        // Verificar nuevamente con el token
+        this.isAuthenticated = this.tokenService.validarToken();
       }
     });
   }

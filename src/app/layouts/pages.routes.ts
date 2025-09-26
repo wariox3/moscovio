@@ -1,14 +1,26 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '@app/common/guards/auth.guard';
 
 export default [
   {
     path: '',
-    redirectTo: 'carga-masiva',
+    redirectTo: 'inicio',
     pathMatch: 'full',
   },
   {
-    path: 'carga-masiva',
+    path: 'inicio',
     canActivate: [],
+    loadComponent: () => import('./admin-layout/admin-layout.component'),
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('../modules/inicio/inicio.routes'),
+      },
+    ],
+  },
+  {
+    path: 'carga-masiva',
+    canActivate: [authGuard],
     loadComponent: () => import('./admin-layout/admin-layout.component'),
     children: [
       {

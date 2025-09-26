@@ -1,0 +1,40 @@
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slide {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  
+  &.active {
+    opacity: 1;
+  }
+}
+
+.slide-image {
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+// Añade animación de fade para las transiciones
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.slide-enter-active {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-leave-active {
+  animation: fadeOut 0.5s ease-in-out;
+}
