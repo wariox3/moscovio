@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SliderComponent } from '../../components/slider/slider.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss'],
   standalone: true,
-  imports: [CommonModule, SliderComponent],
+  imports: [CommonModule, SliderComponent, RouterLink],
 })
-export class InicioComponent implements OnInit {
+export class InicioComponent {
   constructor() {}
-
-  ngOnInit(): void {
-    // Inicialización del componente
-  }
 }

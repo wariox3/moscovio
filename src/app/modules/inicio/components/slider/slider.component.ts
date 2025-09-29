@@ -29,23 +29,27 @@ export class SliderComponent implements OnInit, OnDestroy, AfterViewInit {
   swiper?: Swiper;
   slides = [
     {
-      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop',
+      image:
+        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop',
       title: 'Transporte de carga eficiente',
-      description: 'Conectamos empresas con transportistas de confianza para optimizar tu logística',
+      description:
+        'Conectamos empresas con transportistas de confianza para optimizar tu logística',
     },
     {
-      image: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1200&auto=format&fit=crop',
+      image:
+        'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1200&auto=format&fit=crop',
       title: 'Seguimiento en tiempo real',
       description: 'Monitorea tus envíos desde cualquier lugar con nuestra plataforma',
     },
     {
-      image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=1200&auto=format&fit=crop',
+      image:
+        'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=1200&auto=format&fit=crop',
       title: 'Soluciones para todo tipo de carga',
       description: 'Contamos con transportistas especializados para cualquier tipo de mercancía',
     },
   ];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     // Registrar los módulos de Swiper que vamos a usar

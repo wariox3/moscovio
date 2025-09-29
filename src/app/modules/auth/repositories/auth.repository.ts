@@ -28,6 +28,7 @@ export class AuthRepository {
       {
         username: email,
         accion: 'clave',
+        aplicacion: 'reddoc',
       }
     );
   }

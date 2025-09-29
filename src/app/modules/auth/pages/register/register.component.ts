@@ -3,9 +3,10 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthRepository } from '../../repositories/auth.repository';
 import { finalize } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { matchFieldsValidator } from '@app/common/validators/match-field.validator';
 import { InputComponent, ButtonComponent } from '@tamerlantian/ui-components';
+import { AlertaService } from '@app/common/services/alerta.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,8 @@ import { InputComponent, ButtonComponent } from '@tamerlantian/ui-components';
 })
 export default class RegisterComponent {
   private authService = inject(AuthRepository);
+  private router = inject(Router);
+  private alertaService = inject(AlertaService);
 
   public registrando = signal<boolean>(false);
   public formularioRegister = new FormGroup(
@@ -42,8 +45,9 @@ export default class RegisterComponent {
         proyecto: 'REDDOC',
       })
       .pipe(finalize(() => this.registrando.set(false)))
-      .subscribe(res => {
-        console.log(res);
+      .subscribe(() => {
+        this.router.navigate(['/auth/login']);
+        this.alertaService.mostrarExito('Registro exitoso', 'Ahora puedes iniciar sesión');
       });
   }
 }
