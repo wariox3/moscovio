@@ -56,7 +56,7 @@ export class AuthEffects {
         ofType(loginSuccess),
         tap(() => {
           // Redirigir al usuario a la página principal después de un login exitoso
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/carga-masiva']);
         })
       ),
     { dispatch: false }

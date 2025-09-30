@@ -1,135 +1,296 @@
-<form [formGroup]="viajeForm">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-    <div>
-      <ui-label [required]="true">Servicio</ui-label>
-      <app-select-search
-        [control]="getControl('servicio')"
-        [errors]="{ required: 'Este campo es requerido.' }"
-        [endpoint]="'vertical/servicio/seleccionar/'"
-        [campoBusqueda]="'nombre__icontains'"
-        [parametrosEndpoint]="{
-          nombre__icontains: this.viajeForm.get('servicio__nombre').value,
-          limit: 10,
-        }"
-      ></app-select-search>
-    </div>
-    <div>
-      <ui-label [required]="true">Cliente</ui-label>
-      <ui-input formControlName="cliente" [control]="viajeForm.get('cliente')"></ui-input>
-    </div>
+<!-- Compact Hero Banner -->
+<div class="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden mt-4">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10"></div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-    <div>
-      <ui-label [required]="true">Producto</ui-label>
-      <app-select-search
-        [control]="getControl('producto')"
-        [errors]="{ required: 'Este campo es requerido.' }"
-        [endpoint]="'vertical/producto/seleccionar/'"
-        [campoBusqueda]="'nombre__icontains'"
-        [parametrosEndpoint]="{
-          nombre__icontains: this.viajeForm.get('producto__nombre').value,
-          limit: 10,
-        }"
-      ></app-select-search>
-    </div>
-    <div>
-      <ui-label [required]="true">Empaque</ui-label>
-      <app-select-search
-        [control]="getControl('empaque')"
-        [errors]="{ required: 'Este campo es requerido.' }"
-        [endpoint]="'vertical/empaque/seleccionar/'"
-        [campoBusqueda]="'nombre__icontains'"
-        [parametrosEndpoint]="{
-          nombre__icontains: this.viajeForm.get('empaque__nombre').value,
-          limit: 10,
-        }"
-      ></app-select-search>
-    </div>
-  </div>
+  <!-- Main Content -->
+  <div class="relative z-1 flex items-center justify-center px-3 py-4">
+    <div class="container mx-auto max-w-5xl">
+      <!-- Title -->
+      <div class="text-center mb-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-1">
+          Publica tu <span class="text-yellow-400">Viaje</span>
+        </h2>
+        <p class="text-sm text-blue-100 max-w-xl mx-auto">
+          Encuentra el transporte perfecto para tu carga
+        </p>
+      </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-    <div>
-      <ui-label [required]="true">Puntos de entrega</ui-label>
-      <ui-input
-        formControlName="puntos_entrega"
-        [control]="viajeForm.get('puntos_entrega')"
-        placeholder="0"
-        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
-      ></ui-input>
-    </div>
-    <div>
-      <ui-label [required]="true">Unidades</ui-label>
-      <ui-input
-        formControlName="unidades"
-        type="number"
-        [control]="viajeForm.get('unidades')"
-        placeholder="0"
-        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
-      ></ui-input>
-    </div>
-  </div>
+      <!-- Compact Form Card -->
+      <div class="bg-white rounded-lg shadow-lg p-4 backdrop-blur-sm bg-opacity-95">
+        <form [formGroup]="viajeForm" class="space-y-3" (ngSubmit)="enviarFormulario()">
+          <!-- Secciones compactas -->
+          <div class="border-b border-gray-200 pb-2 mb-3">
+            <h3 class="text-xs font-medium text-gray-500">INFORMACIÓN BÁSICA</h3>
+          </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-    <div>
-      <ui-label [required]="true">Peso</ui-label>
-      <ui-input
-        placeholder="0"
-        formControlName="peso"
-        type="number"
-        [control]="viajeForm.get('peso')"
-        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
-      ></ui-input>
-    </div>
-    <div>
-      <ui-label [required]="true">Volumen</ui-label>
-      <ui-input
-        placeholder="0"
-        formControlName="volumen"
-        type="number"
-        [control]="viajeForm.get('volumen')"
-        [errors]="{ required: 'Este campo es requerido.', min: 'El valor debe ser mayor a 0.' }"
-      ></ui-input>
-    </div>
-  </div>
+          <!-- Ruta y Servicio -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+            <!-- Origen -->
+            <div>
+              <ui-label
+                [required]="true"
+                class="text-xs font-medium text-gray-700 mb-1 flex items-center"
+              >
+                <svg class="w-3 h-3 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Origen
+              </ui-label>
+              <app-select-search
+                [control]="getControl('ciudad_origen')"
+                [errors]="{ required: 'Este campo es requerido.' }"
+                [endpoint]="'vertical/ciudad/seleccionar/'"
+                [campoBusqueda]="'nombre__icontains'"
+                [parametrosEndpoint]="{
+                  nombre__icontains: this.viajeForm.get('ciudad_origen__nombre').value,
+                  limit: 10,
+                }"
+                class="w-full"
+              ></app-select-search>
+            </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-    <div>
-      <ui-label [required]="true">Origen</ui-label>
-      <app-select-search
-        [control]="getControl('ciudad_origen')"
-        [errors]="{ required: 'Este campo es requerido.' }"
-        [endpoint]="'vertical/ciudad/seleccionar/'"
-        [campoBusqueda]="'nombre__icontains'"
-        [parametrosEndpoint]="{
-          nombre__icontains: this.viajeForm.get('ciudad_origen__nombre').value,
-          limit: 10,
-        }"
-      ></app-select-search>
-    </div>
-    <div>
-      <ui-label [required]="true">Destino</ui-label>
-      <app-select-search
-        [control]="getControl('ciudad_destino')"
-        [errors]="{ required: 'Este campo es requerido.' }"
-        [endpoint]="'vertical/ciudad/seleccionar/'"
-        [campoBusqueda]="'nombre__icontains'"
-        [parametrosEndpoint]="{
-          nombre__icontains: this.viajeForm.get('ciudad_destino__nombre').value,
-          limit: 10,
-        }"
-      ></app-select-search>
-    </div>
-  </div>
+            <!-- Destino -->
+            <div>
+              <ui-label
+                [required]="true"
+                class="text-xs font-medium text-gray-700 mb-1 flex items-center"
+              >
+                <svg class="w-3 h-3 text-red-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Destino
+              </ui-label>
+              <app-select-search
+                [control]="getControl('ciudad_destino')"
+                [errors]="{ required: 'Este campo es requerido.' }"
+                [endpoint]="'vertical/ciudad/seleccionar/'"
+                [campoBusqueda]="'nombre__icontains'"
+                [parametrosEndpoint]="{
+                  nombre__icontains: this.viajeForm.get('ciudad_destino__nombre').value,
+                  limit: 10,
+                }"
+                class="w-full"
+              ></app-select-search>
+            </div>
 
-  <div class="grid grid-cols-1 gap-4 mb-5">
-    <div>
-      <ui-label>Comentario</ui-label>
-      <textarea
-        formControlName="comentario"
-        class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[calc(1.5rem*var(--rows))]"
-        [rows]="3"
-      ></textarea>
+            <!-- Servicio -->
+            <div>
+              <ui-label [required]="true" class="text-xs font-medium text-gray-700 mb-1"
+                >Servicio</ui-label
+              >
+              <app-select-search
+                [control]="getControl('servicio')"
+                [errors]="{ required: 'Este campo es requerido.' }"
+                [endpoint]="'vertical/servicio/seleccionar/'"
+                [campoBusqueda]="'nombre__icontains'"
+                [parametrosEndpoint]="{
+                  nombre__icontains: this.viajeForm.get('servicio__nombre').value,
+                  limit: 10,
+                }"
+                class="w-full"
+              ></app-select-search>
+            </div>
+
+            <!-- Cliente -->
+            <div>
+              <ui-label [required]="true" class="text-xs font-medium text-gray-700 mb-1"
+                >Cliente</ui-label
+              >
+              <ui-input
+                formControlName="cliente"
+                [control]="viajeForm.get('cliente')"
+                placeholder="Nombre del cliente"
+                class="w-full"
+              ></ui-input>
+            </div>
+          </div>
+
+          <!-- Detalles de Carga -->
+          <div class="border-b border-gray-200 pb-2 mb-3 mt-4">
+            <h3 class="text-xs font-medium text-gray-500">DETALLES DE CARGA Y MEDIDAS</h3>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <!-- Producto -->
+            <div class="lg:col-span-2">
+              <ui-label [required]="true" class="text-xs font-medium text-gray-700 mb-1"
+                >Producto</ui-label
+              >
+              <app-select-search
+                [control]="getControl('producto')"
+                [errors]="{ required: 'Este campo es requerido.' }"
+                [endpoint]="'vertical/producto/seleccionar/'"
+                [campoBusqueda]="'nombre__icontains'"
+                [parametrosEndpoint]="{
+                  nombre__icontains: this.viajeForm.get('producto__nombre').value,
+                  limit: 10,
+                }"
+                class="w-full"
+              ></app-select-search>
+            </div>
+
+            <!-- Empaque -->
+            <div class="lg:col-span-2">
+              <ui-label [required]="true" class="text-xs font-medium text-gray-700 mb-1"
+                >Empaque</ui-label
+              >
+              <app-select-search
+                [control]="getControl('empaque')"
+                [errors]="{ required: 'Este campo es requerido.' }"
+                [endpoint]="'vertical/empaque/seleccionar/'"
+                [campoBusqueda]="'nombre__icontains'"
+                [parametrosEndpoint]="{
+                  nombre__icontains: this.viajeForm.get('empaque__nombre').value,
+                  limit: 10,
+                }"
+                class="w-full"
+              ></app-select-search>
+            </div>
+
+            <!-- Puntos de Entrega -->
+            <div>
+              <ui-label [required]="true" class="text-xs font-medium text-gray-700 mb-1"
+                >Puntos</ui-label
+              >
+              <ui-input
+                formControlName="puntos_entrega"
+                [control]="viajeForm.get('puntos_entrega')"
+                placeholder="Paradas"
+                [errors]="{
+                  required: 'Este campo es requerido.',
+                  min: 'El valor debe ser mayor a 0.',
+                }"
+                class="w-full"
+              ></ui-input>
+            </div>
+
+            <!-- Unidades -->
+            <div>
+              <ui-label
+                [required]="true"
+                class="text-xs font-medium text-gray-700 mb-1 flex items-center"
+              >
+                <span class="inline-block w-2 h-2 bg-blue-500 rounded-full mr-1"></span>
+                Unidades
+              </ui-label>
+              <ui-input
+                formControlName="unidades"
+                type="number"
+                [control]="viajeForm.get('unidades')"
+                placeholder="Cantidad"
+                [errors]="{
+                  required: 'Este campo es requerido.',
+                  min: 'El valor debe ser mayor a 0.',
+                }"
+                class="w-full"
+              ></ui-input>
+            </div>
+
+            <!-- Peso -->
+            <div>
+              <ui-label
+                [required]="true"
+                class="text-xs font-medium text-gray-700 mb-1 flex items-center"
+              >
+                <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
+                Peso (kg)
+              </ui-label>
+              <ui-input
+                placeholder="Kg"
+                formControlName="peso"
+                type="number"
+                [control]="viajeForm.get('peso')"
+                [errors]="{
+                  required: 'Este campo es requerido.',
+                  min: 'El valor debe ser mayor a 0.',
+                }"
+                class="w-full"
+              ></ui-input>
+            </div>
+
+            <!-- Volumen -->
+            <div>
+              <ui-label
+                [required]="true"
+                class="text-xs font-medium text-gray-700 mb-1 flex items-center"
+              >
+                <span class="inline-block w-2 h-2 bg-purple-500 rounded-full mr-1"></span>
+                Vol. (m³)
+              </ui-label>
+              <ui-input
+                placeholder="m³"
+                formControlName="volumen"
+                type="number"
+                [control]="viajeForm.get('volumen')"
+                [errors]="{
+                  required: 'Este campo es requerido.',
+                  min: 'El valor debe ser mayor a 0.',
+                }"
+                class="w-full"
+              ></ui-input>
+            </div>
+          </div>
+
+          <!-- Comentarios -->
+          <div class="mt-3">
+            <ui-label class="text-xs font-medium text-gray-700 mb-1">Comentarios</ui-label>
+            <textarea
+              formControlName="comentario"
+              class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+              placeholder="Instrucciones especiales, horarios preferidos, etc."
+              [rows]="2"
+            ></textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-2 mt-4">
+            <button
+              type="submit"
+              [disabled]="!viajeForm.valid"
+              class="flex-1 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-200 flex items-center justify-center"
+              [ngClass]="{
+                'bg-blue-600 hover:bg-blue-700': viajeForm.valid,
+                'bg-gray-400 cursor-not-allowed': !viajeForm.valid,
+              }"
+            >
+              <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Publicar Viaje
+            </button>
+
+            <button
+              type="button"
+              (click)="limpiarFormulario()"
+              class="bg-white hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-lg text-sm border border-gray-300 transition-all duration-200 flex items-center justify-center"
+            >
+              <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.008-1.286z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Limpiar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</form>
+</div>

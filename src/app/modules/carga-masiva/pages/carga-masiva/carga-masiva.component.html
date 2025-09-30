@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <!-- Formulario de Viaje -->
+  <div class="mb-6">
+    <app-viaje-formulario (viajeGuardado)="onViajeGuardado($event)"></app-viaje-formulario>
+  </div>
+
+  <!-- Lista de Viajes -->
+  <div class="my-6">
+    <div class="border-b border-gray-200 pb-2 mb-4">
+      <h3 class="text-lg font-medium text-gray-800">Viajes Publicados</h3>
+      <p class="text-sm text-gray-500">Los viajes publicados aparecerán aquí</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (viaje of viajes(); track viaje.datos.id) {
+        <div>
+          <app-viaje-card
+            [viaje]="viaje"
+            (propuestaAceptada)="aceptarPropuesta($event)"
+            (eliminarViaje)="eliminarViaje($event)"
+            (cancelarViaje)="cancelarViaje($event)"
+          ></app-viaje-card>
+        </div>
+      } @empty {
+        <div class="col-span-3 py-8 text-center bg-gray-50 rounded-lg">
+          <p class="text-gray-500">No hay viajes publicados aún</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -40,5 +40,6 @@ export interface Usuario {
   socio_id: number | null;
   verificado: boolean;
   empresa_nombre: string;
+  imagen_thumbnail: string;
   empresa_numero_identificacion: string;
 }

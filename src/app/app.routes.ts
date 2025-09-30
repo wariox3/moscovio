@@ -9,5 +9,5 @@ export const routes: Routes = [
     path: '',
     loadChildren: () => import('./layouts/pages.routes'),
   },
-  { path: '**', redirectTo: 'auth' },
+  { path: '**', redirectTo: '' },
 ];

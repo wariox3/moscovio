@@ -1,0 +1,54 @@
+// Estilos personalizados para el slider
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+// Estilos para los slides
+.swiper-slide {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide-image {
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+// Personalización de los controles de Swiper
+:host ::ng-deep {
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    &::after {
+      font-size: 18px;
+    }
+  }
+  
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    opacity: 1;
+    
+    &-active {
+      background-color: white;
+    }
+  }
+}
