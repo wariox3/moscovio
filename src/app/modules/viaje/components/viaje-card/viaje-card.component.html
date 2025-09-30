@@ -14,7 +14,7 @@
     </div>
     @if (!viaje.datos.estado_aceptado) {
       @if (viaje.datos.propuestas <= 0) {
-        <button
+        <!-- <button
           class="btn btn-icon btn-sm btn-light-primary edit-btn"
           [routerLink]="['/transporte/viaje/editar', viaje.datos.id]"
         >
@@ -22,7 +22,7 @@
             <span class="path1"></span>
             <span class="path2"></span>
           </i>
-        </button>
+        </button> -->
       }
 
       @if (viaje.datos.propuestas <= 0) {
@@ -36,7 +36,9 @@
           </i>
         </button>
       } @else {
-        <button class="btn btn-sm btn-danger" (click)="cancelar(viaje.datos.id)">Cancelar</button>
+        @if ((currentUser$ | async)?.id === viaje.datos.usuario_id.toString()) {
+          <button class="btn btn-sm btn-danger" (click)="cancelar(viaje.datos.id)">Cancelar</button>
+        }
       }
     } @else {
       <ui-estado-badge [color]="'green'" [etiqueta]="'Aceptado'"></ui-estado-badge>
