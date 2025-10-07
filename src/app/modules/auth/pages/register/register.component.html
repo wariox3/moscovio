@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="flex flex-col gap-1">
-        <label class="form-label text-gray-900"> Email </label>
+        <ui-label [required]="true"> Email </ui-label>
         <ui-input
           placeholder="Ingresa tu correo"
           formControlName="username"
@@ -26,7 +26,29 @@
         ></ui-input>
       </div>
       <div class="flex flex-col gap-1">
-        <label class="form-label font-normal text-gray-900"> Contraseña </label>
+        <ui-label> Nombre de la empresa </ui-label>
+        <ui-input
+          placeholder="Ingresa el nombre de tu empresa"
+          formControlName="empresa_nombre"
+          [control]="formularioRegister.get('empresa_nombre')"
+          [errors]="{
+            required: 'El nombre de la empresa es requerido.',
+          }"
+        ></ui-input>
+      </div>
+      <div class="flex flex-col gap-1">
+        <ui-label> Empresa número de identificación </ui-label>
+        <ui-input
+          placeholder="Ingresa el número de identificación"
+          formControlName="empresa_numero_identificacion"
+          [control]="formularioRegister.get('empresa_numero_identificacion')"
+          [errors]="{
+            maxlength: 'El número de identificación no puede exceder 20 caracteres.',
+          }"
+        ></ui-input>
+      </div>
+      <div class="flex flex-col gap-1">
+        <ui-label [required]="true"> Contraseña </ui-label>
         <ui-input
           placeholder="**********"
           type="password"
@@ -34,12 +56,12 @@
           [control]="formularioRegister.get('password')"
           [errors]="{
             required: 'La contraseña es requerida.',
-            minlength: 'La contraseña debe tener al menos 3 caracteres.',
+            minlength: 'La contraseña debe tener al menos 8 caracteres.',
           }"
         ></ui-input>
       </div>
       <div class="flex flex-col gap-1">
-        <label class="form-label font-normal text-gray-900"> Confirmar contraseña </label>
+        <ui-label [required]="true"> Confirmar contraseña </ui-label>
         <ui-input
           placeholder="**********"
           type="password"
